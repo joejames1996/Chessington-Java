@@ -20,16 +20,17 @@ public class Rook extends AbstractPiece
     {
         List<Move> allowedMoves = new ArrayList<>();
 
-        allowedMoves = addUpwardMoves(allowedMoves, from);
-        allowedMoves = addDownwardMoves(allowedMoves, from);
-        allowedMoves = addLeftMoves(allowedMoves, from);
-        allowedMoves = addRightMoves(allowedMoves, from);
+        allowedMoves.addAll(addUpwardMoves(from));
+        allowedMoves.addAll(addDownwardMoves(from));
+        allowedMoves.addAll(addLeftMoves(from));
+        allowedMoves.addAll(addRightMoves(from));
 
         return allowedMoves;
     }
 
-    public List<Move> addUpwardMoves(List<Move> allowedMoves, Coordinates from)
+    public List<Move> addUpwardMoves(Coordinates from)
     {
+        List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
         int currentCol = from.getCol();
 
@@ -41,8 +42,9 @@ public class Rook extends AbstractPiece
         return allowedMoves;
     }
 
-    public List<Move> addDownwardMoves(List<Move> allowedMoves, Coordinates from)
+    public List<Move> addDownwardMoves(Coordinates from)
     {
+        List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
         int currentCol = from.getCol();
 
@@ -54,8 +56,9 @@ public class Rook extends AbstractPiece
         return allowedMoves;
     }
 
-    public List<Move> addLeftMoves(List<Move> allowedMoves, Coordinates from)
+    public List<Move> addLeftMoves(Coordinates from)
     {
+        List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
         int currentCol = from.getCol();
 
@@ -67,8 +70,9 @@ public class Rook extends AbstractPiece
         return allowedMoves;
     }
 
-    public List<Move> addRightMoves(List<Move> allowedMoves, Coordinates from)
+    public List<Move> addRightMoves(Coordinates from)
     {
+        List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
         int currentCol = from.getCol();
 
