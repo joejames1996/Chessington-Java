@@ -20,15 +20,15 @@ public class Rook extends AbstractPiece
     {
         List<Move> allowedMoves = new ArrayList<>();
 
-        allowedMoves.addAll(addUpwardMoves(from));
-        allowedMoves.addAll(addDownwardMoves(from));
-        allowedMoves.addAll(addLeftMoves(from));
-        allowedMoves.addAll(addRightMoves(from));
+        allowedMoves.addAll(addUpwardMoves(from, board));
+        allowedMoves.addAll(addDownwardMoves(from, board));
+        allowedMoves.addAll(addLeftMoves(from, board));
+        allowedMoves.addAll(addRightMoves(from, board));
 
         return allowedMoves;
     }
 
-    public List<Move> addUpwardMoves(Coordinates from)
+    public List<Move> addUpwardMoves(Coordinates from, Board board)
     {
         List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
@@ -37,12 +37,19 @@ public class Rook extends AbstractPiece
         while(currentRow != 0)
         {
             currentRow--;
-            allowedMoves.add(new Move(from, new Coordinates(currentRow, currentCol)));
+            Coordinates coordinates = new Coordinates(currentRow, currentCol);
+            if(board.get(coordinates) != null)
+            {
+                if(board.get(coordinates).getColour() != this.colour)
+                    allowedMoves.add(new Move(from, coordinates));
+                break;
+            }
+            allowedMoves.add(new Move(from, coordinates));
         }
         return allowedMoves;
     }
 
-    public List<Move> addDownwardMoves(Coordinates from)
+    public List<Move> addDownwardMoves(Coordinates from, Board board)
     {
         List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
@@ -51,12 +58,19 @@ public class Rook extends AbstractPiece
         while(currentRow != 7)
         {
             currentRow++;
-            allowedMoves.add(new Move(from, new Coordinates(currentRow, currentCol)));
+            Coordinates coordinates = new Coordinates(currentRow, currentCol);
+            if(board.get(coordinates) != null)
+            {
+                if(board.get(coordinates).getColour() != this.colour)
+                    allowedMoves.add(new Move(from, coordinates));
+                break;
+            }
+            allowedMoves.add(new Move(from, coordinates));
         }
         return allowedMoves;
     }
 
-    public List<Move> addLeftMoves(Coordinates from)
+    public List<Move> addLeftMoves(Coordinates from, Board board)
     {
         List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
@@ -65,12 +79,19 @@ public class Rook extends AbstractPiece
         while(currentCol != 0)
         {
             currentCol--;
-            allowedMoves.add(new Move(from, new Coordinates(currentRow, currentCol)));
+            Coordinates coordinates = new Coordinates(currentRow, currentCol);
+            if(board.get(coordinates) != null)
+            {
+                if(board.get(coordinates).getColour() != this.colour)
+                    allowedMoves.add(new Move(from, coordinates));
+                break;
+            }
+            allowedMoves.add(new Move(from, coordinates));
         }
         return allowedMoves;
     }
 
-    public List<Move> addRightMoves(Coordinates from)
+    public List<Move> addRightMoves(Coordinates from, Board board)
     {
         List<Move> allowedMoves = new ArrayList<>();
         int currentRow = from.getRow();
@@ -79,7 +100,14 @@ public class Rook extends AbstractPiece
         while(currentCol != 7)
         {
             currentCol++;
-            allowedMoves.add(new Move(from, new Coordinates(currentRow, currentCol)));
+            Coordinates coordinates = new Coordinates(currentRow, currentCol);
+            if(board.get(coordinates) != null)
+            {
+                if(board.get(coordinates).getColour() != this.colour)
+                    allowedMoves.add(new Move(from, coordinates));
+                break;
+            }
+            allowedMoves.add(new Move(from, coordinates));
         }
         return allowedMoves;
     }
