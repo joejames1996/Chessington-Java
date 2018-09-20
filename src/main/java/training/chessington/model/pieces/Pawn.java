@@ -1,9 +1,6 @@
 package training.chessington.model.pieces;
 
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +18,8 @@ public class Pawn extends AbstractPiece {
 
         allowedMoves.add(new Move(from, from.plus(allowedColMovement, 0)));
         if(!hasPawnMoved(from)) allowedMoves.add(new Move(from, from.plus(allowedFirstColMovement, 0)));
+
+        allowedMoves = checkPiecesAreNotInFront(allowedMoves, board);
         return allowedMoves;
     }
 
@@ -28,5 +27,11 @@ public class Pawn extends AbstractPiece {
     {
         int startingRow = this.colour == PlayerColour.BLACK ? 1 : 6;
         return pos.getRow() == startingRow ? false : true;
+    }
+
+    public List<Move> checkPiecesAreNotInFront(List<Move> moveList, Board board)
+    {
+        moveList.removeIf(m -> board.get(m.getTo()) != null);
+        return moveList;
     }
 }
