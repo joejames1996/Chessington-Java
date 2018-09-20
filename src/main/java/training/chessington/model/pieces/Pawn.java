@@ -20,9 +20,10 @@ public class Pawn extends AbstractPiece
         List<Move> allowedMoves = new ArrayList<>();
 
         allowedMoves = addNewMove(allowedMoves, from, from.plus(allowedColMovement, 0));
-        if(!hasPawnMoved(from)) allowedMoves.add(new Move(from, from.plus(allowedFirstColMovement, 0)));
+        if(!hasPawnMoved(from)) allowedMoves = addNewMove(allowedMoves, from, from.plus(allowedFirstColMovement, 0));
 
         allowedMoves = checkMoveListValidity(allowedMoves, board);
+        allowedMoves = addDiagonalMoves(allowedMoves, board, from);
         return allowedMoves;
     }
 
@@ -36,6 +37,32 @@ public class Pawn extends AbstractPiece
         if(!(to.getRow() < 0 || to.getRow() > 7 || to.getCol() < 0 || to.getCol() > 7))
         {
             moveList.add(new Move(from, to));
+        }
+        return moveList;
+    }
+
+    public List<Move> addDiagonalMoves(List<Move> moveList, Board board, Coordinates from)
+    {
+        Coordinates newPos;
+        int boardLimit = this.colour == PlayerColour.BLACK ? 7 : 0;
+        if(from.getRow() != boardLimit)
+        {
+            if (from.getCol() > 0)
+            {
+                newPos = from.plus(allowedColMovement, -1);
+                if (board.get(newPos) != null && board.get(newPos).getColour() != this.colour)
+                {
+                    moveList = addNewMove(moveList, from, newPos);
+                }
+            }
+            if (from.getCol() < 7)
+            {
+                newPos = from.plus(allowedColMovement, 1);
+                if (board.get(newPos) != null && board.get(newPos).getColour() != this.colour)
+                {
+                    moveList = addNewMove(moveList, from, newPos);
+                }
+            }
         }
         return moveList;
     }
